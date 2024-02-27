@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-md-12 ">
+      <div class="row mb-2">
+        <div class="col-md-4">
+          <div class="card"  >
+            <div class="card-header">
+              Add Organization
+            </div>
+            <div class="card-body">
+              <form  [formGroup]="myForm" class="form" (ngSubmit)="onSubmit()" >
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Organization Name</label>
+                      <input [ngClass]="{'is-invalid':(myForm.get('name')?.invalid && myForm.get('name')?.touched) || submited} " type="text" formControlName="name" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Organization">
+
+                    </div>
+                  </div>
+
+                  <div class="col-12 mt-2">
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+
+                    </div>
+                </div>
+
+
+              </form>
+             </div>
+             </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="card"  appSubmitbtn>
+            <div class="card-header">
+              Add Designation
+            </div>
+            <div class="card-body">
+              <form  [formGroup]="myDesignationForm" class="form" (ngSubmit)="onDesignationSubmit()" >
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Designation</label>
+                      <input [ngClass]="{'is-invalid':(myForm.get('designation')?.invalid && myForm.get('designation')?.touched) || submitedmyDesignationForm} " type="text" formControlName="designation" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Designation">
+
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group mb-2">
+                      <label for="exampleInputEmail1">Organization</label>
+                       <select class="form-control" formControlName="organization" [ngClass]="{'is-invalid':(myDesignationForm.get('organization')?.invalid && myDesignationForm.get('organization')?.touched) || submitedmyDesignationForm} ">
+                        <option value="" selected>Select Organization</option>
+                     <option value="{{item.id}}" *ngFor="let item
+                      of organization">{{item.name}}</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="col-12 mt-2">
+                    <button type="submit" class="btn btn-sm btn-primary" >Submit</button>
+
+                    </div>
+                </div>
+
+
+              </form>
+             </div>
+             </div>
+        </div> -->
+      </div>
+
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-6">
+          <table id="organization" class="table">
+            <thead>
+             <th>Id</th>
+             <th>Name</th>
+             <th>Action</th>
+            </thead>
+            <tbody>
+              <tr style="border:1px solid" *ngFor="let item
+              of organization">
+              <td>
+               {{item.id}}
+              </td>
+              <td>
+               {{item.name}}
+              </td>
+            <td>
+              <button routerLink="{{item.id}}">Edit</button>
+              <button (click)="deleteOrganization(item.id)">Delete</button>
+
+            </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
