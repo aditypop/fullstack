@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganizationController;
 
 /*
@@ -21,7 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
+Route::middleware('jwt.auth')->group(function () {
+    // Your protected routes here
 Route::get('organizations', [OrganizationController::class,'index']);
 
 Route::get('organization/{id}', [OrganizationController::class,'show']);
@@ -31,4 +33,11 @@ Route::post('organization',[OrganizationController::class,'store']);
 Route::put('organization/{id}',[OrganizationController::class,'update']);
 
 Route::delete('organization/{id}',[OrganizationController::class,'destroy']);
+
+
+});
+
+Route::post('auth/login', [AuthController::class,'login']);
+Route::post('auth/refresh',[AuthController::class,'refresh']);
+
 

@@ -29,6 +29,36 @@
              </div>
              </div>
         </div>
+
+        <div class="col-6">
+          <table id="organization" class="table">
+
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border:1px solid" *ngFor="let item
+              of organization">
+              <td>
+               {{item.id}}
+              </td>
+              <td>
+               {{item.name}}
+              </td>
+            <td>
+              <button routerLink="{{item.id}}">Edit</button>
+              <button (click)="deleteOrganization(item.id)">Delete</button>
+
+            </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
         <!-- <div class="col-md-6">
           <div class="card"  appSubmitbtn>
             <div class="card-header">
@@ -69,7 +99,7 @@
       </div>
 
     </div>
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <div class="row">
         <div class="col-6">
           <table id="organization" class="table">
@@ -100,6 +130,6 @@
 
       </div>
 
-    </div>
+    </div> -->
   </div>
 </div>
