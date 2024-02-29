@@ -9,7 +9,7 @@ class JwtMiddleware
 {
     public function handle($request, Closure $next)
     {
-        dd(2);
+        // dd(2);
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
