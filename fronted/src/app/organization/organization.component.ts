@@ -11,15 +11,18 @@ import { OrganizationService } from '../service/organization.service';
 export class OrganizationComponent implements OnInit{
 myForm:FormGroup;
 // myDesignationForm:FormGroup;
-organization :Organization[] = [];
+organizations :Organization[] = [];
+organization :any;
 designation:any;
 submited:boolean=false;
+isEdit:boolean=false;
 // submitedmyDesignationForm:boolean=false;
 constructor(private FormBuilder:FormBuilder,private organizationservice:OrganizationService,
   // private designationservice:DesignationService
   ){
   this.myForm = this.FormBuilder.group({
-    'name':['',Validators.required]
+    'name':['',Validators.required],
+    'id':[]
   })
 //  this.myDesignationForm =  this.FormBuilder.group({
 //     'organization':['',Validators.required],
@@ -27,7 +30,7 @@ constructor(private FormBuilder:FormBuilder,private organizationservice:Organiza
 
 //   });
   this.organizationservice.getOrganizations().subscribe(organizations => {
-    this.organization = organizations;
+    this.organizations = organizations;
   });
 //  this.designationservice.getDesignations().subscribe(designation=>{
 //   this.designation = designation;
@@ -40,18 +43,11 @@ ngOnInit(): void {
 onSubmit(){
   this.submited =true;
   if(this.myForm.valid){
-    this.organizationservice.addOrganization({ id:'', name: this.myForm.value?.name }).subscribe(() => {
-      this.organizationservice.getOrganizations().subscribe(organizations => {
-        this.organization = organizations;
-        console.log('New organization id:', organizations);
-
-      });
-      this.submited = false;
-      this.myForm.reset();
-    });
-    // this.organization = this.organizationservice.addOrganization({id:2,name:this.myForm.value?.name});
-    this.submited =false;
-    this.myForm.reset();
+    if(!this.isEdit) {
+      this.saveOrganization();
+    } else if(this.isEdit) {
+      this.updateOrganization(this.myForm.value.id, this.myForm.value);
+    }
   }
 }
 // onDesignationSubmit(){
@@ -63,13 +59,42 @@ onSubmit(){
 //   }
 // }
 
-
+saveOrganization() {
+  this.organizationservice.addOrganization({ id:'', name: this.myForm.value?.name }).subscribe(() => {
+    this.submited = false;
+    this.myForm.reset();
+    this.getAllOrganizations();
+  });
+}
 
 deleteOrganization(id: number): void {
   this.organizationservice.deleteOrganization(id).subscribe(() => {
-    this.organizationservice.getOrganizations().subscribe(organizations => {
-      this.organization = organizations;
+    this.getAllOrganizations();
+  });
+}
+
+editOrganization(id: number): void {
+  this.organizationservice.getOrganization(id).subscribe((organization) => {
+    this.myForm.patchValue({
+      'name': organization.name,
+      'id': organization.id
     });
+    this.isEdit = true;
+  });
+}
+
+updateOrganization(id: number, organization: Organization): void {
+  this.organizationservice.updateOrganization(id, organization).subscribe(() => {
+    this.isEdit = false;
+    this.submited =false;
+    this.myForm.reset();
+    this.getAllOrganizations();
+  });
+}
+
+getAllOrganizations() {
+  this.organizationservice.getOrganizations().subscribe(organizations => {
+    this.organizations = organizations;
   });
 }
 }
