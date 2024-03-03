@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './service/auth-service.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth.guard';
+import { EmployeeComponent } from './employee/employee.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AuthGuard } from './auth.guard';
     HomeComponent,
     HeaderComponent,
     OrganizationComponent,
-    LoginComponent
+    LoginComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,

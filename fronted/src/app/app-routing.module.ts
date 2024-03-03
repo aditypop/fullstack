@@ -6,10 +6,12 @@ import { OrganizationComponent } from './organization/organization.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { NoauthGuard } from './noauth.guard';
+import { EmployeeComponent } from './employee/employee.component';
 
 const routes: Routes = [
  { path:'',component:HomeComponent},
  { path: 'organization', component: OrganizationComponent, canActivate: [AuthGuard]},
+ { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard]},
  { path: 'login', component: LoginComponent,canActivate: [NoauthGuard] },
 
 ];
